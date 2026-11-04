@@ -1,0 +1,5 @@
+# Copy to .dev.vars (gitignored) for local dev with `npx wrangler dev`.
+# Put real values in .dev.vars only. Never commit them. Deployed secrets use `npx wrangler secret put <NAME>`.
+ELASTIC_URL=https://your-project.es.your-region.elastic.cloud
+ELASTIC_API_KEY=your-elastic-api-key
+MISTRAL_API_KEY=your-mistral-api-key
