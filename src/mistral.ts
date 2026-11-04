@@ -18,6 +18,9 @@ const SYSTEM_PROMPT = [
   'Use ONLY the JSON data the user sends. Do not invent names, numbers, events or causes. If the data is thin, say so plainly.',
   'Write exactly 3 short bullets about what is happening on their block, then 1 concrete action for this week (for example an event, a promo, or a 311 report to file).',
   'Never promise revenue, sales or more customers. Plain and friendly, no hype. Keep each bullet and the action under 25 words.',
+  'The data has no earlier period, so never describe trends, increases, decreases or comparisons over time. Only state counts, names, dates and distances that appear in the data.',
+  'In the action, never invent dates, times, prices or events that are not in the data; say "this week". In the es object, copy every number, name and date exactly as it appears in en.',
+  "The owner's goal is to grow traffic across the whole week. Where it fits, prefer an action that does not depend on alcohol sales alone, such as live music, food, a private event or a zero-proof menu. Any fact, number or name must still come from the data.",
   'Return ONLY JSON shaped like {"en":{"bullets":["","",""],"action":""},"es":{"bullets":["","",""],"action":""}}.',
   'The es object is natural Spanish for a Spanish-speaking bar owner in San Francisco, with the same meaning as en.',
 ].join(' ');
