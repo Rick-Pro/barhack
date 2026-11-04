@@ -1,32 +1,31 @@
 /**
  * Every Elasticsearch index name and field name lives in THIS file and nowhere else.
  *
- * The values below are UNVERIFIED PLACEHOLDERS, taken from reading the host starter notebooks
- * (they were not run). Check each line marked CHECK against `GET <index>/_mapping` in Kibana
- * Dev Tools, then edit this file only. Search for "CHECK" to find every line.
+ * Verified against the explicit mappings in the host notebooks (sf_311_cases.ipynb and
+ * sf_business_locations.ipynb in jdarmada/elastic-mistral-hacknight). Still worth a quick
+ * `GET <index>/_mapping` in Kibana Dev Tools after the data is loaded.
  */
 
 export const INDEX = {
-  cases: 'sf_311_cases', // CHECK: 311 index name
-  businesses: 'sf_business_locations', // CHECK: business registry index name
+  cases: 'sf_311_cases', // notebook INDEX
+  businesses: 'sf_business_locations', // notebook INDEX
 } as const;
 
 export const CASE = {
-  location: 'location', // CHECK: must be a geo_point
-  requestedAt: 'requested_at', // CHECK: date the 311 case was opened
-  serviceName: 'service_name', // CHECK: must be a keyword for the terms aggregation (if it is text, use 'service_name.keyword')
-  // CHECK: service names to leave out, wildcard and case-insensitive. Parking enforcement drowns everything else.
+  location: 'location', // geo_point
+  requestedAt: 'requested_at', // date, the day the 311 case was opened
+  serviceName: 'service_name', // keyword, so the terms aggregation works directly
+  // Service names to leave out, wildcard and case-insensitive. Parking enforcement drowns everything else.
   // Set to [] to keep every case.
   excludeServiceNames: ['*parking*'] as readonly string[],
 } as const;
 
 export const BIZ = {
-  name: 'name', // CHECK: business name, should be a text field (if it is a keyword, the match must be exact)
-  address: 'address', // CHECK: street address, shown to the owner to confirm the match
-  location: 'location', // CHECK: must be a geo_point
-  openedAt: 'location_start', // CHECK: date this location opened (the other candidate is 'business_start')
-  naics: 'naics_code', // CHECK: must be a keyword for prefix queries
-  // CHECK: NAICS prefixes for bars (7224) and restaurants (7225). Set to [] to turn the filter off,
-  // for example if naics_code is mapped as a number.
+  name: 'name', // text (with a .keyword subfield)
+  address: 'address', // text (with a .keyword subfield), shown to the owner to confirm the match
+  location: 'location', // geo_point
+  openedAt: 'location_start', // date this location opened (business_start is when the DBA began)
+  naics: 'naics_code', // keyword, so prefix queries work (Paname SF and Paris 75 are both 722511)
+  // NAICS prefixes for bars (7224) and restaurants (7225). Set to [] to turn the filter off.
   naicsPrefixes: ['7224', '7225'] as readonly string[],
 } as const;
